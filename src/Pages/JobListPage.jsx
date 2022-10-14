@@ -1,16 +1,16 @@
 import React from 'react';
 import Footer from '../components/Footer/Footer';
-import Login from '../components/Login/Login';
+import JobList from '../components/JobList/JobList';
 import NavBar from '../components/Navbar/NavBar';
 
-const LoginPage = () => {
+const JobListPage = () => {
     return (
         <>
             <NavBar/>
-            <Login/>
+            <JobList/>
             <Footer/>
         </>
     );
 };
 
-export default LoginPage;
+export default JobListPage;

@@ -1,0 +1,12 @@
+.navbar-nav>a{
+    font-size:18px;
+    color:white !important;
+    margin:0 8px;
+   
+}
+.mainNav{
+    z-index:7878787878 !important;
+}
+.bg_Blue{
+    background-color: #2F2EA6 !important;
+}

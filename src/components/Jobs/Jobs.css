@@ -1,0 +1,13 @@
+.job_title:hover{
+    color:#2F2EA6;
+    transition: 0.2s;
+    
+}
+.single_Job:hover{
+    background-color: aliceblue;
+    transition: 0.3s;
+}
+.single_Job:hover  .company_Logo{
+    background-color: aliceblue !important;
+    transition: 0.3s;
+}

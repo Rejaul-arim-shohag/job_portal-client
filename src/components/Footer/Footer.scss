@@ -1,0 +1,39 @@
+// @import "../../../node_modules/bootstrap/scss/bootstrap";
+// @import "../node_modules/bootstrap/scss/bootstrap";
+
+.footerSection {
+    // background: #242B2E;
+    background: rgb(0, 1, 51);
+   
+    color: #fff;
+    // color: #5DA3FA;
+    // font-weight: bold;
+    h3{
+        margin-bottom: 1em;
+    }
+    .footerCard {
+        flex: 1 1 0%;
+        padding: 2em;
+        text-align: left;
+        p {
+            color: #cad5e2c1;
+        }
+        .linkList {
+            padding-left: 0 !important;
+            a {
+                color: #cad5e2c1;
+                &:hover {
+                    color: #cad5e2;
+                }
+            }
+        }
+        &.aboutUs,&.contactUs{
+            text-align: justify;
+        }
+    }
+    .credit {
+        background: #03203C;
+        text-align: center;
+        padding: 1em 0;
+    }
+}

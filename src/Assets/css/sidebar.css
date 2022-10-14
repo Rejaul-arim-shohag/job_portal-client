@@ -87,7 +87,7 @@
 
 .content {
     transition: 0.3s;
-    margin-top: 80px;
+    margin-top: 20px;
     margin-left: 240px;
 }
 .content-expand {
@@ -110,9 +110,9 @@
     width: 100% !important;
 }
 .side-bar-item:hover{
-    border-left: 4px solid #CB0C9F;
+    border-left: 4px solid #E7EFFB;
     transition: 0.2s;
-    background-color: #F3D9EC;
+    background-color: #E7EFFB;
 }
 .side-bar-item:hover .side-bar-item-icon {
     color: #363B64;
@@ -121,8 +121,8 @@
     color: #363B64;
 }
 .side-bar-item-active{
-    border-left: 4px solid #CB0C9F;
-    background-color:#F3D9EC;
+    border-left: 4px solid #E7EFFB !important;
+    background-color:#E7EFFB;
 }
 .side-bar-item-icon{
     font-size: 18px;

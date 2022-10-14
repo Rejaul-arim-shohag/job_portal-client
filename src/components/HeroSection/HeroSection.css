@@ -1,0 +1,41 @@
+.heroSection{
+    background-image:url("../../Assets/images/bg-slider2.jpg")
+}
+.searchBox{
+    background-color: white;
+    position:relative;
+    border-radius: 8px;
+}
+.searchInput{
+    
+    border-radius: 5px  0  0 5px !important;
+    outline:0 !important;
+}
+
+.searchInput:focus {
+    border-color: 0 !important;
+    box-shadow:none !important;
+  }
+
+  .searchIcon{
+    position: absolute;
+    left:19px;
+    top:24px;
+  }
+
+  .locationSelect{
+    position: absolute;
+    left:53%;
+    top:22px;
+  }
+  .ImLocation{
+    position: absolute;
+    left:51%;
+    top:25px;
+  }
+  .jobSearchBtn{
+    position: absolute;
+    left:80%;
+    top:10px;
+  }
+

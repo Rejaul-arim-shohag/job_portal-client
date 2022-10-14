@@ -1,0 +1,43 @@
+.footerSection {
+  background: #432650;
+  color: #fff;
+}
+
+.footerSection h3 {
+  margin-bottom: 1em;
+}
+
+.footerSection .footerCard {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 0%;
+          flex: 1 1 0%;
+  padding: 2em;
+  text-align: left;
+}
+
+.footerSection .footerCard p {
+  color: #cad5e2c1;
+}
+
+.footerSection .footerCard .linkList {
+  padding-left: 0 !important;
+}
+
+.footerSection .footerCard .linkList a {
+  color: #cad5e2c1;
+}
+
+.footerSection .footerCard .linkList a:hover {
+  color: #cad5e2;
+}
+
+.footerSection .footerCard.aboutUs, .footerSection .footerCard.contactUs {
+  text-align: justify;
+}
+
+.footerSection .credit {
+  background: #03203C;
+  text-align: center;
+  padding: 1em 0;
+}
+/*# sourceMappingURL=Footer.css.map */

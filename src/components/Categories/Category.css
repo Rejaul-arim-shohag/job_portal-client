@@ -1,0 +1,6 @@
+.category:hover {
+ cursor:pointer;
+ border :1px solid #2F2EA6 !important;
+ transition: 0.2s;
+ box-sizing: border-box;
+}

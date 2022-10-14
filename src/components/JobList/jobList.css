@@ -1,0 +1,27 @@
+.search_keywords{
+    position: relative;
+}
+.JobSearchIcon{
+    position: absolute;
+    top:13px;
+    left:20px;
+}
+.inputShadowNone{
+    box-shadow: none !important;
+}
+
+.search_location{
+    position: relative;
+}
+.locationSearchIcon{
+    position: absolute;
+    top:13px;
+    left:20px;
+}
+
+.CategorySearchIcon{
+    position: absolute;
+    top:13px;
+    left:20px;
+}
+
