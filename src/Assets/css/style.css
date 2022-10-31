@@ -20,7 +20,9 @@ h1,h2,h3,h4,h5,h6,button,input,textarea{
   text-align: center;
   min-height: 85vh;
 }
-
+.jodit-wysiwyg{
+  min-height: 200px !important;
+}
 p{
   font-size: 14px;
   font-family: 'Poppins', sans-serif !important;

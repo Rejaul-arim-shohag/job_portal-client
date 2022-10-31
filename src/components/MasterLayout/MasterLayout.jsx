@@ -1,20 +1,29 @@
-import React, { Fragment, useRef } from "react";
+import React, { Fragment, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
-import { BsHourglass,BsPersonPlusFill } from "react-icons/bs";
+import { BsHourglass, BsPersonPlusFill } from "react-icons/bs";
 import { RiDashboardLine } from "react-icons/ri";
 import NavBar from "../Navbar/NavBar";
 import profile from "../../Assets/images/member4.jpg"
+import { readCandidateProfileData } from "../../ApiRequest/APIRequest";
+import { useState } from "react";
 // import { getUserDetails, removeSession } from "../../Helper/SessionHelper";
 
 const MasterLayout = (props) => {
 
-    let contentRef, sideNavRef = useRef();
-
+    let contentRef, sideNavRef, nameRef, profileImagePreviewRef = useRef();
+    const [candidateName, setCandidateName] = useState("")
     // const onLogout = () => {
     //     removeSession()
     // }
 
-    
+    useEffect(() => {
+        readCandidateProfileData()
+            .then((res) => {
+                setCandidateName(res?.[0]?.applicant_name);
+                profileImagePreviewRef.src = res?.[0]?.profile_image;
+
+            })
+    }, [])
 
     return (
         <Fragment>
@@ -22,18 +31,22 @@ const MasterLayout = (props) => {
             <div ref={(div) => { sideNavRef = div }} className="side-nav-open">
                 <div className="candidate_profile">
                     <div className="candidate_profile_image d-flex justify-content-center mt-3">
-                        <img  src={profile} className="rounded-circle" alt="" />
+                        <img ref={(input) => profileImagePreviewRef = input} className="rounded-circle user-profile-img" alt="" />
                     </div>
-                    <h6 className="text-center mt-2">Rejaul karim</h6>
+                    <h6 className="text-center mt-2">{candidateName}</h6>
                 </div>
                 <NavLink className={(navData) => navData.isActive ? "side-bar-item-active side-bar-item mt-2" : "side-bar-item mt-2"} to="/candidate_dashboard" end>
                     <RiDashboardLine className="side-bar-item-icon" />
-                    <span className="side-bar-item-caption" style={{fontSize:"15px"}}>User Dashboard</span>
+                    <span className="side-bar-item-caption" style={{ fontSize: "15px" }}>Candidate Dashboard</span>
                 </NavLink>
                 <NavLink className={(navData) => navData.isActive ? "side-bar-item-active side-bar-item mt-2" : "side-bar-item mt-2"} to="/candidate_dashboard/profile">
                     <BsPersonPlusFill className="side-bar-item-icon" />
-                    <span className="side-bar-item-caption"  style={{fontSize:"15px"}}>Profile</span>
+                    <span className="side-bar-item-caption" style={{ fontSize: "15px" }}>Profile</span>
                 </NavLink>
+                {/* <NavLink className={(navData) => navData.isActive ? "side-bar-item-active side-bar-item mt-2" : "side-bar-item mt-2"} to="/candidate_dashboard/my_applied">
+                    <BsPersonPlusFill className="side-bar-item-icon" />
+                    <span className="side-bar-item-caption" style={{ fontSize: "15px" }}>My Applied</span>
+                </NavLink> */}
             </div>
 
             <div ref={(div) => contentRef = div} className="content">

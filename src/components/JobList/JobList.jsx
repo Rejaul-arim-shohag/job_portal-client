@@ -10,108 +10,64 @@ import { MdBusinessCenter } from "react-icons/md";
 import { ImLocation2 } from "react-icons/im";
 import { TbCurrencyTaka } from "react-icons/tb";
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { readCategories, readJobs, readLocations, readTypes } from '../../ApiRequest/APIRequest';
 
-
+import ReactPaginate from 'react-paginate';
 const JobList = () => {
-    const FakeJobs = [
-        {
-            id: 1,
-            Title: "Junior Graphic Designer (Web)",
-            skills: "Design/Finance",
-            location: "Dhaka",
-            salary: "20000-30000",
-            salaryType: "Monthly",
-            hiring: "Full Time",
-            isArgent: true,
-            icon: "https://static.vecteezy.com/system/resources/thumbnails/003/377/380/small/line-icon-for-web-develop-vector.jpg",
-            position: 1
-        },
-        {
-            id: 2,
-            Title: "Finance Manager & Health",
-            skills: "Design/Finance",
-            location: "Dhaka",
-            salary: "20000-30000",
-            salaryType: "Monthly",
-            hiring: "Full TIme",
-            isArgent: false,
-            icon: "https://static.vecteezy.com/system/resources/thumbnails/003/377/380/small/line-icon-for-web-develop-vector.jpg",
-            position: 1
-        },
-        {
-            id: 3,
-            Title: "General Ledger Accountant",
-            skills: "Design/Finance",
-            location: "Dhaka",
-            salary: "20000-30000",
-            salaryType: "Monthly",
-            hiring: "Full TIme",
-            isArgent: true,
-            icon: "https://static.vecteezy.com/system/resources/thumbnails/003/377/380/small/line-icon-for-web-develop-vector.jpg",
-            position: 1
-        },
-        {
-            id: 4,
-            Title: "Assistant / Store Keeper",
-            skills: "Design/Finance",
-            location: "Dhaka",
-            salary: "20000-30000",
-            salaryType: "Monthly",
-            hiring: "Full TIme",
-            isArgent: true,
-            icon: "https://static.vecteezy.com/system/resources/thumbnails/003/377/380/small/line-icon-for-web-develop-vector.jpg",
-            position: 1
-        },
-        {
-            id: 5,
-            Title: "Group Marketing Manager",
-            skills: "Design/Finance",
-            location: "Dhaka",
-            salary: "20000-30000",
-            salaryType: "Monthly",
-            hiring: "Full TIme",
-            isArgent: false,
-            icon: "https://static.vecteezy.com/system/resources/thumbnails/003/377/380/small/line-icon-for-web-develop-vector.jpg",
-            position: 1
-        },
-        {
-            id: 5,
-            Title: "Product Sales Specialist ",
-            skills: "Design/Finance",
-            location: "Dhaka",
-            salary: "20000-30000",
-            salaryType: "Monthly",
-            hiring: "Full TIme",
-            isArgent: true,
-            icon: "https://static.vecteezy.com/system/resources/thumbnails/003/377/380/small/line-icon-for-web-develop-vector.jpg",
-            position: 1
-        },
-        {
-            id: 7,
-            Title: "Product Sales Specialist",
-            skills: "Design/Finance",
-            location: "Dhaka",
-            salary: "20000-30000",
-            salaryType: "Monthly",
-            hiring: "Full TIme",
-            isArgent: true,
-            icon: "https://static.vecteezy.com/system/resources/thumbnails/003/377/380/small/line-icon-for-web-develop-vector.jpg",
-            position: 1
-        },
-        {
-            id: 8,
-            Title: "Product Sales Specialist",
-            skills: "Design/Finance",
-            location: "Dhaka",
-            salary: "20000-30000",
-            salaryType: "Monthly",
-            hiring: "Full TIme",
-            isArgent: false,
-            icon: "https://static.vecteezy.com/system/resources/thumbnails/003/377/380/small/line-icon-for-web-develop-vector.jpg",
-            position: 1
-        },
-    ]
+    const [jobList, setJobList] = useState([]);
+    const [count, setCount] = useState(0);
+   
+    const [categoryList, setCategoryList] = useState([]);
+    const [typeList, setTypeList] = useState([]);
 
+    const [perPage, setPerPage] = useState(10);
+    const [searchKeyword, setSearchKeyword] = useState(null);
+    const [selectedLocation, setSelectedlocation] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedType, setSelectedType] = useState(null);
+    const [sortBy, setSortBy] = useState(-1);
+
+    //all jobs
+    useEffect(() => {
+        readJobs(perPage, searchKeyword, selectedLocation, selectedCategory, selectedType, sortBy)
+            .then((result) => {
+                setJobList(result[0]?.Rows)
+                setCount(result[0]?.total[0]?.count)
+            })
+    }, [selectedLocation, selectedCategory,selectedType, perPage])
+
+const handleFindJob=()=>{
+    readJobs(perPage, searchKeyword, selectedLocation, selectedCategory, selectedType, sortBy)
+    .then((result) => {
+        setJobList(result[0]?.Rows)
+        setCount(result[0]?.total[0]?.count)
+    })
+}
+
+const handlePageClick=(e)=>{
+    readJobs(perPage, searchKeyword, selectedLocation, selectedCategory, selectedType, sortBy, e.selected + 1)
+}
+
+
+
+    useEffect(() => {
+        readCategories()
+            .then((result) => {
+                setCategories(result)
+            });
+        readLocations()
+            .then((result) => {
+                setLocations(result)
+            });
+        readTypes()
+            .then((result) => {
+                setTypes(result)
+            });
+    }, [])
+    const [categories, setCategories] = useState([]);
+    const [types, setTypes] = useState([]);
+    const [locations, setLocations] = useState([]);
     return (
         <div className="bg-white my-5 py-5">
             <div className="container">
@@ -119,16 +75,27 @@ const JobList = () => {
                     <div className="col-md-4 px-4 py-4 rounded" style={{ background: "#F5F7FC" }}>
                         <div>
                             <h6>Search by Keywords </h6>
-                            <div className="search_keywords mt-3">
-                                <input className="form-control py-2 px-5 inputShadowNone" placeholder='Job Title, Keywords...' type="text" />
+                            <div className="search_keywords input-group mt-3">
+                                <input onChange={(e)=>setSearchKeyword(e.target.value)} className="form-control  px-5 inputShadowNone" placeholder='Job Title, Keywords...' type="text" />
                                 <BiSearch className="JobSearchIcon" style={{ fontSize: "20px" }} />
+                                <button onClick={handleFindJob} className="btn btn-primary job_search_btn">Search</button>
                             </div>
+
                         </div>
 
                         <div className="mt-5">
                             <h6>Location</h6>
                             <div className="search_location mt-3">
-                                <input className="form-control py-2 px-5 inputShadowNone" placeholder="City" type="text" />
+                                <select onChange={(e) => setSelectedlocation(e.target.value)} className="form-select py-2 px-5 inputShadowNone" placeholder="City" type="text" >
+                                    <option>Select Location</option>
+                                    {
+                                    locations.map((item, index) => {
+                                        return (
+                                            <option key={index} value={item._id}>{item.location_name}</option>
+                                        )
+                                    })
+                                }
+                                </select>
                                 <ImLocation className="locationSearchIcon" style={{ fontSize: "20px" }} />
                             </div>
                         </div>
@@ -136,11 +103,15 @@ const JobList = () => {
                         <div className="mt-5">
                             <h6>Category</h6>
                             <div className="Category_search mt-3 position-relative">
-                                <select className="form-select py-2 px-5 inputShadowNone" aria-label="Default select example">
-                                    <option selected>Choose a Category</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                <select onChange={(e) => setSelectedCategory(e.target.value)} className="form-select py-2 px-5 inputShadowNone" aria-label="Default select example">
+                                    <option>Select Category</option>
+                                    {
+                                        categories.map((item, index) => {
+                                            return (
+                                                <option key={index} value={item._id}>{item.category_name}</option>
+                                            )
+                                        })
+                                    }
 
                                 </select>
                                 <BsFillBriefcaseFill className="CategorySearchIcon" style={{ fontSize: "18px" }} />
@@ -151,21 +122,21 @@ const JobList = () => {
                         <div className="mt-5">
                             <h6>Job Type</h6>
                             <div className="Category_search mt-3 position-relative">
-                                <select className="form-select py-2 px-5 inputShadowNone" aria-label="Default select example">
-                                    <option selected>Choose a Type</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                <select onChange={(e) => setSelectedType(e.target.value)} className="form-select py-2 px-5 inputShadowNone" aria-label="Default select example">
+                                    <option>Select Type</option>
+                                    {
+                                        types.map((item, index) => {
+                                            return (
+                                                <option key={index} value={item._id}>{item.type_name}</option>
+                                            )
+                                        })
+                                    }
 
                                 </select>
                                 <GiOfficeChair className="CategorySearchIcon" style={{ fontSize: "18px" }} />
                             </div>
                         </div>
-                        <div className="mt-5">
-                            <div className="mt-3">
-                                <button className="btn btn-primary w-100 py-2">Find Jobs</button>
-                            </div>
-                        </div>
+
                     </div>
 
                     <div className="col-md-8 py-3">
@@ -173,39 +144,39 @@ const JobList = () => {
                             <div className="job_count mx-2">
                                 <p className="mt-2">Showing 1 – 10 of 18 results</p>
                             </div>
-                            <div className="mx-4">
+                            {/* <div className="mx-4">
                                 <select className="form-select py-2 px-4 inputShadowNone" aria-label="Default select example">
                                     <option selected>Sort by (Default)</option>
                                     <option value="1">Newest</option>
                                     <option value="2">Oldest</option>
                                 </select>
-                            </div>
+                            </div> */}
                             <div className="mx-4">
-                                <select className="form-select py-2 px-4 inputShadowNone" aria-label="Default select example">
-                                    <option value="1" selected>10 Per Page</option>
-                                    <option value="1">20 Per Page</option>
-                                    <option value="3">30 Per Page</option>
+                                <select onChange={(e)=>setPerPage(e.target.value)} className="form-select py-2 px-4 inputShadowNone" aria-label="Default select example">
+                                    <option value="10" selected>10 Per Page</option>
+                                    <option value="20">20 Per Page</option>
+                                    <option value="30">30 Per Page</option>
                                 </select>
                             </div>
                         </div>
                         <div className="row">
                             {
-                                FakeJobs.map((item, index) => {
+                                jobList.map((item, index) => {
                                     return (
                                         <div key={index} className="col-md-12 col-lg-12 col-12 " style={{ boxSizing: "border-box" }}>
                                             <div className="px-4 py-4 my-3 border rounded single_Job">
                                                 <div className="d-flex justify-content-start">
                                                     <div className="icon px-1 bg-white company_Logo px-2 py-3 rounded">
-                                                        <img className="" src={item.icon} style={{ width: "50px" }} alt="" />
+                                                        <img className="" src={item?.profile_image} style={{ width: "50px" }} alt="" />
                                                     </div>
                                                     <div>
-                                                        <Link to="/" className="job_title">
-                                                            <h6 className="px-2 pt-3" style={{ fontWeight: "600" }}>{item.Title}</h6>
+                                                        <Link to={`/Job/${item._id}`} className="job_title">
+                                                            <h6 className="px-2 pt-3" style={{ fontWeight: "600" }}>{item?.job_title}</h6>
                                                         </Link>
                                                         <div className="details d-flex justify-content-start">
                                                             <div className="d-flex justify-content-between">
                                                                 <MdBusinessCenter className="mt-1 mx-1" style={{ fontSize: "15px" }} />
-                                                                <p>{item.skills}</p>
+                                                                <p>{item.categories}</p>
                                                             </div>
 
                                                             <div className="d-flex mx-1 justify-content-center">
@@ -214,17 +185,22 @@ const JobList = () => {
                                                             </div>
                                                             <div className="d-flex mx-1 justify-content-center">
                                                                 <TbCurrencyTaka className="mt-1 mx-1" style={{ fontSize: "15px" }} />
-                                                                <p>20k - 50k /Monthly</p>
+                                                                <p>{item?.job_salary} /Monthly</p>
+                                                            </div>
+
+                                                            <div className="d-flex mx-1 justify-content-center">
+                                                                <GiOfficeChair className="mt-1 mx-1" style={{ fontSize: "15px" }} />
+                                                                <span className=" rounded-pill ">vacancy : {item?.no_of_vacancy}</span>
                                                             </div>
 
                                                         </div>
                                                         <div className="mx-auto text-center">
                                                             <div className="d-flex justify-content-start">
-                                                                <span className=" rounded-pill px-3 py-2 text-white mx-2" style={{ background: "#6c89ba" }}>{item.hiring}</span>
+                                                                <span className=" rounded-pill px-3 py-2 text-white mx-2" style={{ background: "#6c89ba" }}>{item?.type}</span>
                                                                 {
-                                                                    item.isArgent === true ? <span className="bg-warning rounded-pill px-3 py-2 p-2 mx-2 text-white">Argent</span> : ""
+                                                                    item.isArgent == "true" ? <span className="bg-warning rounded-pill px-3 py-2 p-2 mx-2 text-white">Argent</span> : ""
                                                                 }
-
+                                                                {/* <span className="bg-warning rounded-pill px-3 py-2 p-2 mx-2 text-white">{item.isArgent}</span> */}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -235,6 +211,29 @@ const JobList = () => {
                                     )
                                 })
                             }
+                        </div>
+                        <div className="col-12 mt-2">
+                            <nav aria-label="Page navigation example">
+                                <ReactPaginate
+                                    previousLabel="<"
+                                    nextLabel=">"
+                                    pageClassName="page-item"
+                                    pageLinkClassName="page-link"
+                                    previousClassName="page-item"
+                                    previousLinkClassName="page-link"
+                                    nextClassName="page-item"
+                                    nextLinkClassName="page-link"
+                                    breakLabel="..."
+                                    breakClassName="page-item"
+                                    breakLinkClassName="page-link"
+                                    pageCount={count / perPage}
+                                    marginPagesDisplayed={2}
+                                    pageRangeDisplayed={5}
+                                    onPageChange={handlePageClick}
+                                    containerClassName="pagination"
+                                    activeClassName="active"
+                                />
+                            </nav>
                         </div>
                     </div>
                 </div>

@@ -3,11 +3,13 @@ import { Button, Container, Navbar } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import "./NavBar.css"
 import logo from "../../Assets/images/logo-white.png"
-import { Link, useNavigate, NavLink  } from 'react-router-dom';
+import { Link, useNavigate, NavLink } from 'react-router-dom';
+import Dropdown from 'react-bootstrap/Dropdown';
+
 const NavBar = () => {
     let navigate = useNavigate()
     return (
-        <div style={{margin:"0px", padding:"0px", backgroundColor:"#2F2EA6"}}>
+        <div style={{ margin: "0px", padding: "0px", backgroundColor: "#2F2EA6" }}>
             <Navbar className="bg_Blue mainNav mx-w-100" expand="lg">
                 <Container>
                     <Navbar.Brand href="#home">
@@ -20,7 +22,7 @@ const NavBar = () => {
                                 Home
                             </Nav.Link>
                             <Nav.Link as={NavLink} to='/JobList'>
-                               Find Job
+                                Find Job
                             </Nav.Link>
                             <Nav.Link>
                                 Employers
@@ -31,8 +33,20 @@ const NavBar = () => {
                             <Nav.Link>
                                 Blog
                             </Nav.Link>
-                            <button onClick={()=>navigate("/Login")} className="mx-3 btn  btn-outline-primary text-white">Login/Register</button>
-                            <button className="btn btn-primary">Job Post</button>
+                            
+                            <Dropdown>
+                                <Dropdown.Toggle className="toggle_btn" variant="primary" id="dropdown-basic">
+                                    Login/Register
+                                </Dropdown.Toggle>
+
+                                <Dropdown.Menu> 
+                                    <Dropdown.Item as={NavLink} to='/login'>Candidate</Dropdown.Item>
+                                    <Dropdown.Item as={NavLink} to='/employer_login'>Employer</Dropdown.Item>
+                
+                                </Dropdown.Menu>
+                            </Dropdown>
+                            {/* <button onClick={()=>navigate("/Login")} className="mx-3 btn  btn-outline-primary text-white">Login/Register</button> */}
+                            <button className="btn btn-primary mx-2">Job Post</button>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

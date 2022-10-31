@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useEffect } from 'react';
 import { useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { loginCandidate } from '../../ApiRequest/APIRequest';
-import { ErrorToast, IsEmail, IsEmpty, SuccessToast } from '../../Helper/FormHelper';
+import { loginEmployer } from '../../../ApiRequest/APIRequest';
+import { ErrorToast, IsEmail, IsEmpty } from '../../../Helper/FormHelper';
 
-const Login = () => {
+const EmployerLogin = () => {
     let emailRef, passRef= useRef();
     let navigate = useNavigate()
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
-
-    const handleLoginCandidate=()=>{
+    const handleLoginEmployer=()=>{
         const email = emailRef.value;
         const password = passRef.value;
         if(IsEmail(email)){
@@ -19,10 +19,10 @@ const Login = () => {
         } else if (IsEmpty(password)){
             ErrorToast("Password required")
         } else{
-            loginCandidate(email,password)
+            loginEmployer(email,password)
             .then((result)=>{
                 if(result.data.data){
-                    navigate("/candidate_dashboard/profile")
+                    navigate("/employer_dashboard")
                 }
                
             })
@@ -45,11 +45,11 @@ const Login = () => {
                         
 
                         <div className="mt-4">
-                            <button onClick={handleLoginCandidate} className="btn btn-primary w-100 py-2">Login</button>
+                            <button onClick={handleLoginEmployer}  className="btn btn-primary w-100 py-2">Login</button>
                         </div>
 
                         <div className="mt-3">
-                            <p className="text-center">Don't you have an account?   <Link to="/registration" className="text-primary font-weight-bold"> Register</Link></p>
+                            <p className="text-center">Don't you have an account? <Link to="/employer_registration" className="text-primary font-weight-bold"> Register</Link></p>
                         </div>
 
                     </div>
@@ -57,10 +57,7 @@ const Login = () => {
                 </div>
             </div>
         </div>
-
-
     );
 };
 
-export default Login;
-
+export default EmployerLogin;

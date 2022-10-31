@@ -1,24 +1,43 @@
 class SessionHelper{
-    setToken(token){
-        localStorage.setItem("token",token)
+    setCandidateToken(token){
+        localStorage.setItem("candidateToken",token)
     }
-    getToken(){
-        return localStorage.getItem("token")
+    getCandidateToken(){
+        return localStorage.getItem("candidateToken")
+    }
+    setCandidateDetails(CandidateDetails){
+        localStorage.setItem("CandidateDetails",JSON.stringify(CandidateDetails))
+    }
+    getCandidateDetails(){
+       return JSON.parse(localStorage.getItem("CandidateDetails"))
+    }
+    setCandidateEmail(email){
+        localStorage.setItem("candidate",email)
+    }
+    getCandidateEmailEmail(){
+        return localStorage.getItem("candidate")
     }
 
-    setEmail(email){
-        localStorage.setItem("email",email)
+//employer
+    setEmployerToken(token){
+        localStorage.setItem("employerToken",token)
     }
-    getEmail(){
-        return localStorage.getItem("email")
+    setEmployerDetails(employerDetails){
+        localStorage.setItem("employerDetails",JSON.stringify(employerDetails))
     }
+    getEmployerToken(){
+        return localStorage.getItem("employerToken")
+    }
+    getEmployerDetails(){
+        return JSON.parse(localStorage.getItem("employerDetails"))
+     }
+
     setOTP(OTP){
         localStorage.setItem("OTP",OTP)
     }
     getOTP(){
         return localStorage.getItem("OTP")
     }
-
     setUserDetails(userDetails){
         localStorage.setItem("userDetails",JSON.stringify(userDetails))
     }
@@ -31,6 +50,7 @@ class SessionHelper{
     }
 }
 export const {
-    setToken,getToken,setUserDetails,getUserDetails,
-     removeSession,setEmail,getEmail,setOTP,getOTP
+    setEmployerToken,setEmployerDetails,getEmployerToken,getEmployerDetails,
+    setCandidateToken, getCandidateToken, setCandidateDetails,getCandidateDetails,
+     removeSession,setCandidateEmail,getCandidateEmailEmail,setOTP,getOTP
 }=new SessionHelper;

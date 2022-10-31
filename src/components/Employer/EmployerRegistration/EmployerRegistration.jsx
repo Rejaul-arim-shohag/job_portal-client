@@ -1,19 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import "./Registration.css"
-import { BsFillPersonFill, BsFillBriefcaseFill } from "react-icons/bs";
-import GridLoader from "react-spinners/ClipLoader";
-import { Link, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { useEffect } from 'react';
 import { useRef } from 'react';
-import { ErrorToast, IsEmail, IsEmpty, SuccessToast } from '../../Helper/FormHelper';
-import { registrationCandidate } from '../../ApiRequest/APIRequest';
-const Registration = () => {
+import { Link, useNavigate } from 'react-router-dom';
+import { registrationEmployer } from '../../../ApiRequest/APIRequest';
+import { ErrorToast, IsEmail, IsEmpty, SuccessToast } from '../../../Helper/FormHelper';
+
+const EmployerRegistration = () => {
     let emailRef, passRef, confirmPassRef = useRef();
-    // const [loading, setLoading] = useState(false)
     let navigate = useNavigate()
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
-    const handleCreateCandidate = () => {
+    const handleCreateEmployer = () => {
         const email = emailRef.value;
         const password = passRef.value;
         const confirmPas = confirmPassRef.value;
@@ -25,11 +23,10 @@ const Registration = () => {
         } else if (password !== confirmPas) {
             ErrorToast("Password must be equal Confirm Password")
         } else {
-            registrationCandidate(email, password)
+            registrationEmployer(email, password)
                 .then((result) => {
-                    SuccessToast("Account create success")
                     if (result === true) {
-                        navigate("/Login")
+                        navigate("/employer_login")
                     }
                 })
         }
@@ -62,13 +59,10 @@ const Registration = () => {
                             </div>
 
                             <div className="mt-3">
-                                <button onClick={handleCreateCandidate} className="btn btn-primary w-100 py-3">Register Now</button>
+                                <button onClick={handleCreateEmployer} className="btn btn-primary w-100 py-3">Register Now</button>
                             </div>
-
-
-
                             <div className="mt-3">
-                                <p className="text-center">Already have an account? <Link to="/Login" className="text-primary font-weight-bold"> Login</Link></p>
+                                <p className="text-center">Already have an account? <Link to="/employer_login" className="text-primary font-weight-bold"> Login</Link></p>
                             </div>
 
                         </div>
@@ -82,4 +76,4 @@ const Registration = () => {
     );
 };
 
-export default Registration;
+export default EmployerRegistration;

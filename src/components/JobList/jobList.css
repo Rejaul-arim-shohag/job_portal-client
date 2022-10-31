@@ -6,6 +6,12 @@
     top:13px;
     left:20px;
 }
+/* .job_search_btn{
+    position: absolute;
+    top:2px;
+   right:0px;
+   
+} */
 .inputShadowNone{
     box-shadow: none !important;
 }
