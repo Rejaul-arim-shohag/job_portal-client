@@ -19,7 +19,7 @@ const CandidateProfile = () => {
         let imageFile = profileImageRef.files[0]
         getBase64(imageFile).then((base64Image) => {
             profileImagePreviewRef.src = base64Image
-            debugger;
+            
         })
     }
 

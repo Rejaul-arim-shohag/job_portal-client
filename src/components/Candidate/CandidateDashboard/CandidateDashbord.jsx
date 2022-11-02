@@ -6,111 +6,14 @@ import { Link } from 'react-router-dom';
 import { readApplicantJobs } from '../../../ApiRequest/APIRequest';
 const CandidateDashbord = () => {
     const [appliedJobs, setAppliedJobs] = useState([])
-    useEffect(()=>{
+    useEffect(() => {
         readApplicantJobs()
-        .then((result)=>{
-            setAppliedJobs(result)
-        })
-    },[])
+            .then((result) => {
+                setAppliedJobs(result)
+            })
+    }, [])
     console.log(appliedJobs)
-    const FakeJobs = [
-        {
-            id: 1,
-            Title: "Junior Graphic Designer (Web)",
-            skills: "Design/Finance",
-            location: "Dhaka",
-            salary: "20000-30000",
-            salaryType: "Monthly",
-            hiring: "Full Time",
-            isArgent: true,
-            icon: "https://static.vecteezy.com/system/resources/thumbnails/003/377/380/small/line-icon-for-web-develop-vector.jpg",
-            position: 1
-        },
-        {
-            id: 2,
-            Title: "Finance Manager & Health",
-            skills: "Design/Finance",
-            location: "Dhaka",
-            salary: "20000-30000",
-            salaryType: "Monthly",
-            hiring: "Full TIme",
-            isArgent: false,
-            icon: "https://static.vecteezy.com/system/resources/thumbnails/003/377/380/small/line-icon-for-web-develop-vector.jpg",
-            position: 1
-        },
-        {
-            id: 3,
-            Title: "General Ledger Accountant",
-            skills: "Design/Finance",
-            location: "Dhaka",
-            salary: "20000-30000",
-            salaryType: "Monthly",
-            hiring: "Full TIme",
-            isArgent: true,
-            icon: "https://static.vecteezy.com/system/resources/thumbnails/003/377/380/small/line-icon-for-web-develop-vector.jpg",
-            position: 1
-        },
-        {
-            id: 4,
-            Title: "Assistant / Store Keeper",
-            skills: "Design/Finance",
-            location: "Dhaka",
-            salary: "20000-30000",
-            salaryType: "Monthly",
-            hiring: "Full TIme",
-            isArgent: true,
-            icon: "https://static.vecteezy.com/system/resources/thumbnails/003/377/380/small/line-icon-for-web-develop-vector.jpg",
-            position: 1
-        },
-        {
-            id: 5,
-            Title: "Group Marketing Manager",
-            skills: "Design/Finance",
-            location: "Dhaka",
-            salary: "20000-30000",
-            salaryType: "Monthly",
-            hiring: "Full TIme",
-            isArgent: false,
-            icon: "https://static.vecteezy.com/system/resources/thumbnails/003/377/380/small/line-icon-for-web-develop-vector.jpg",
-            position: 1
-        },
-        {
-            id: 5,
-            Title: "Product Sales Specialist ",
-            skills: "Design/Finance",
-            location: "Dhaka",
-            salary: "20000-30000",
-            salaryType: "Monthly",
-            hiring: "Full TIme",
-            isArgent: true,
-            icon: "https://static.vecteezy.com/system/resources/thumbnails/003/377/380/small/line-icon-for-web-develop-vector.jpg",
-            position: 1
-        },
-        {
-            id: 7,
-            Title: "Product Sales Specialist",
-            skills: "Design/Finance",
-            location: "Dhaka",
-            salary: "20000-30000",
-            salaryType: "Monthly",
-            hiring: "Full TIme",
-            isArgent: true,
-            icon: "https://static.vecteezy.com/system/resources/thumbnails/003/377/380/small/line-icon-for-web-develop-vector.jpg",
-            position: 1
-        },
-        {
-            id: 8,
-            Title: "Product Sales Specialist",
-            skills: "Design/Finance",
-            location: "Dhaka",
-            salary: "20000-30000",
-            salaryType: "Monthly",
-            hiring: "Full TIme",
-            isArgent: false,
-            icon: "https://static.vecteezy.com/system/resources/thumbnails/003/377/380/small/line-icon-for-web-develop-vector.jpg",
-            position: 1
-        },
-    ]
+
     return (
         <div>
             <h3 className="mx-5">Applications statistics</h3>
@@ -127,7 +30,7 @@ const CandidateDashbord = () => {
                     <div className="card py-3">
                         <div className="card-body text-center">
                             <h3 className="card-title">00</h3>
-                            <h4 className="card-text">00</h4>
+                            <h4 className="card-text">Views</h4>
                         </div>
                     </div>
                 </div>
@@ -135,7 +38,7 @@ const CandidateDashbord = () => {
                     <div className="card py-3">
                         <div className="card-body text-center">
                             <h3 className="card-title">00</h3>
-                            <h4 className="card-text">00</h4>
+                            <h4 className="card-text">Shortlisted</h4>
                         </div>
                     </div>
                 </div>
@@ -155,7 +58,7 @@ const CandidateDashbord = () => {
                                                     <img className="" src={item.profile_image} style={{ width: "50px" }} alt="" />
                                                 </div>
                                                 <div>
-                                                    <Link to="/" className="job_title">
+                                                    <Link to={`/Job/${item.job_id}`} className="job_title">
                                                         <h6 className="px-2 pt-3" style={{ fontWeight: "600" }}>{item.job_title}</h6>
                                                     </Link>
                                                     <div className="details d-flex justify-content-start">

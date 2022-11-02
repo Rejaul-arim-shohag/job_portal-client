@@ -17,6 +17,7 @@ import EmployerLoginPage from "./Pages/EmployerPages/EmployerLoginPage";
 import EmployerRegistrationPage from "./Pages/EmployerPages/EmployerRegistrationPage";
 import EmployerPrivate from "./components/PrivateRoute/EmployerPrivate";
 import SingleJobPage from "./Pages/SingleJobPage";
+import ApplyNowPage from "./Pages/CandidatePages/ApplyNowPage";
 
 function App() {
 
@@ -39,6 +40,14 @@ function App() {
             element={
               <CandidatePrivate>
                 <CandidateDashboardPage />
+              </CandidatePrivate>
+            }
+          />
+          <Route
+            path="/apply/:job_id"
+            element={
+              <CandidatePrivate>
+                <ApplyNowPage />
               </CandidatePrivate>
             }
           />

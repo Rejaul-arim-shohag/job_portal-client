@@ -29,13 +29,13 @@ export default function Footer() {
                         <div className="footerCard contactUs ">
                             <h3>Address</h3>
                             <p>Address- Plot# 1671, Nandipara, Trimuhoni Bridge, Rampura-Staff Quarter Rd, Dhaka-1214.</p>
-                            <p>WhatsApp- 01977165675</p>
-                            <p>Mail- contact@topgear.com.bd</p>
+                            <p>WhatsApp- 01774004740</p>
+                            <p>Mail- rejaulkarim4740@gmail.com</p>
                         </div>
                         <div className=" footerCard aboutUs">
                             <h3>About Us</h3>
 
-                            <p >Since 2016, Barber Trading is one of the reliable companies in salon business in Bangladesh which is importing and retailing brand new, re-conditioned superior quality cars, microbus, SUVs and other cars both in Pre-Order/stock basis. We also offer dedicated service center for regular maintenance of the purchased vehicle. </p>
+                            <p >In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.</p>
                         </div>
                     </div>
 
@@ -43,7 +43,7 @@ export default function Footer() {
                 </div>
 
                 <div className="credit">
-                    <p>COPYRIGHT © 2022-2023 - ALL RIGHTS RESERVED. BY BARBER SHOP LTD</p>
+                    <p>COPYRIGHT © 2022-2023 - ALL RIGHTS RESERVED. BY KARIM JOB PORTAL</p>
                 </div>
             </footer>
         </div>

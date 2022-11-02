@@ -3,49 +3,59 @@ import { useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginCandidate } from '../../ApiRequest/APIRequest';
 import { ErrorToast, IsEmail, IsEmpty, SuccessToast } from '../../Helper/FormHelper';
-
+import logo from "../../Assets/images/logo-dark.png"
 const Login = () => {
-    let emailRef, passRef= useRef();
+    let emailRef, passRef = useRef();
     let navigate = useNavigate()
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
 
-    const handleLoginCandidate=()=>{
+    const handleLoginCandidate = () => {
         const email = emailRef.value;
         const password = passRef.value;
-        if(IsEmail(email)){
+        if (IsEmail(email)) {
             ErrorToast("valid Email required")
-        } else if (IsEmpty(password)){
+        } else if (IsEmpty(password)) {
             ErrorToast("Password required")
-        } else{
-            loginCandidate(email,password)
-            .then((result)=>{
-                if(result.data.data){
-                    navigate("/candidate_dashboard/profile")
-                }
-               
-            })
+        } else {
+            loginCandidate(email, password)
+                .then((result) => {
+                    if (result) {
+                        window.location.href = "/candidate_dashboard/profile"
+                    }
+
+                })
         }
-      }
+    }
     return (
         <div className="container">
-            <div className="row">
-                <div className="col-md-7 mx-auto mt-4 px-5 py-5 rounded" style={{ background: "#fff" }}>
-                    <h1 className="text-center mt2 mb-4" style={{ fontWeight: "600" }}>Login</h1>
+            <div className="row mt-5">
+                <div className="d-flex justify-content-center">
+                    <img style={{ width: "200px" }} src={logo} alt="" />
+                </div>
+                <h5 className="text-center mt-5">Sign in</h5>
+                <p className="text-center">Sign in to continue to Cariera.</p>
+                <div className="col-md-6 mx-auto mt-4 px-5 py-5 rounded" style={{ background: "#fff" }}>
+
                     <div className="content-wrap mt-2">
                         <div className="mt-4">
                             <label for="email">Email *</label>
-                            <input ref={(input)=>emailRef=input} required className="form-control py-2" id="email" type="text" />
+                            <input ref={(input) => emailRef = input} required className="form-control" id="email" type="text" />
                         </div>
                         <div className="mt-4">
                             <label for="password">Password *</label>
-                            <input ref={(input)=>passRef=input} required id="password" className="form-control py-2" type="password" />
+                            <input ref={(input) => passRef = input} required id="password" className="form-control" type="password" />
                         </div>
-                        
+                        <div className="form-check mt-2">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                            <label class="form-check-label" for="flexCheckDefault">
+                            Remember me
+                            </label>
+                        </div>
 
                         <div className="mt-4">
-                            <button onClick={handleLoginCandidate} className="btn btn-primary w-100 py-2">Login</button>
+                            <button onClick={handleLoginCandidate} className="btn btn-primary w-100">Login</button>
                         </div>
 
                         <div className="mt-3">

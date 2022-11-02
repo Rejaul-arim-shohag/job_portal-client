@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
-import parse from 'html-react-parser';
-import { Link, useParams } from 'react-router-dom';
+import ReactHtmlParser from 'react-html-parser';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { BiSearch } from "react-icons/bi";
 import { GiOfficeChair } from "react-icons/gi";
 import { BiTimeFive } from "react-icons/bi";
@@ -19,6 +19,7 @@ import { useEffect } from 'react';
 
 const SingleJob = () => {
     let { id } = useParams()
+    let navigate = useNavigate()
     const [Job, setSIngleJob] = useState({})
     useEffect(() => {
         readJobById(id)
@@ -73,17 +74,21 @@ const SingleJob = () => {
                                 </div>
 
                             </div>
-                            <div className="content">
-                                {/* {parse(Job?.job_description)} */}
-                               { Job?.job_description}
+                            <div className="job_description ">
+                                <div style={{ marginLeft: "25px" }}>
+                                    <h6 className="text-dark mb-3 font-weight-bold">{Job?.company_name}</h6>
+                                    {ReactHtmlParser(Job?.job_description)}
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div className="col-md-4">
                         <div className="px-4 my-5 pt-2">
-                            <h6>Application ends:{Job?.last_application_date}</h6>
-                            <button className="btn btn-primary w-100">Apply Now</button>
+                            <h6>Application ends: <span className="text-danger">{Job?.last_application_date}</span></h6>
 
+                            <Link to={`/apply/${id}`}>
+                                <button className="btn btn-primary w-100">Apply Now</button>
+                            </Link>
                             <div className="px-4 py-4 mt-4" style={{ background: "aliceblue" }}>
                                 <div className="d-flex justify-content-start mt-3">
                                     <div className="icon px-1 company_Logo rounded">
@@ -124,13 +129,14 @@ const SingleJob = () => {
                             </div>
 
 
-                            <div className="px-4 py-4 mt-4" style={{ background: "aliceblue" }}>
+                            {/* <div className="px-4 py-4 mt-4" style={{ background: "aliceblue" }}>
                                 <div className="d-flex justify-content-start mt-3">
                                     <div className="icon">
                                         <FaLinkedinIn />
                                     </div>
 
                                 </div>
+
                                 <div className="d-flex justify-content-start mt-3">
                                     <div className="icon px-1 company_Logo px-1 rounded">
                                         <ImLocation2 style={{ fontSize: "25px" }} />
@@ -141,7 +147,7 @@ const SingleJob = () => {
                                 </div>
 
 
-                            </div>
+                            </div> */}
 
                         </div>
                     </div>

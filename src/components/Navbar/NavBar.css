@@ -14,3 +14,9 @@
 .toggle_btn{
     padding-bottom: 10px !important;
 }
+.hideNavLink{
+    display: none;
+}
+.showNavLink{
+    display: block;
+}

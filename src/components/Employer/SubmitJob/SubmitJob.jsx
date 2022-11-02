@@ -152,8 +152,8 @@ const SubmitJob = () => {
 
                         <div className="mt-3 col-md-6">
                             <label className="mb-2">Is Argent?</label>
-                            <select className="form-select py-2 inputShadowNone" style={{ backgroundColor: "#F9F8F8" }} >
-                                <option value="false">No</option>
+                            <select onChange={(e) => setIsUrgent(e.target.value)} className="form-select py-2 inputShadowNone" style={{ backgroundColor: "#F9F8F8" }} >
+                                <option selected value="false">No</option>
                                 <option value="true">Yes</option>
                             </select>
                         </div>

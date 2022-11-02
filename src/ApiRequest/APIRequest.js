@@ -145,6 +145,31 @@ export function readApplicantJobs() {
         })
 }
 
+export function jobApplicationSend(job_id, companyId) {
+    const url = baseUrl + "/CreateJobApply";
+    store.dispatch(ShowLoader())
+    const postBody = {
+        applicant_id:applicant_id,
+        job_id:job_id,
+        companyId:companyId,
+
+    }
+    return axios.post(url, postBody, candidate_axiosHeader)
+        .then((result) => {
+            store.dispatch(HideLoader())
+            if (result.status === 200) {
+                return true
+            } else {
+               ErrorToast("Applied Failed")
+            }
+        }).catch((err) => {
+            store.dispatch(HideLoader())
+            if (err.response.status === 401) {
+                removeSession()
+                window.location.href = "/login"
+            }
+        })
+}
 
 
 export function readCategories() {
@@ -187,8 +212,9 @@ export function readTypes() {
 
 
 
-export function readJobs(perPage, searchKeyword, location, category, type, sortBy) {
-    const url = baseUrl + "/readJobs/" + 1 + "/" + perPage;
+export function readJobs(perPage, searchKeyword, location, category, type, sortBy, pageNo) {
+   debugger;
+    const url = baseUrl + "/readJobs/" + pageNo+ "/" + perPage;
     store.dispatch(ShowLoader())
     const postBody = {
         searchKeyword: searchKeyword,
@@ -243,8 +269,8 @@ export function registrationEmployer(email, password) {
                         return false;
                     }
                     else {
-                        ErrorToast("Something Went Wrong")
-                        debugger
+                        ErrorToast("Something Went Wrong1")
+                        console.log(res)
                         return res;
                     }
                 }
@@ -254,8 +280,7 @@ export function registrationEmployer(email, password) {
                 }
             }
             else {
-
-                ErrorToast("Something Went Wrong")
+                ErrorToast("Something Went Wrong2")
                 return false;
             }
         })
@@ -332,11 +357,35 @@ export function updateEmployerProfile(name, address, contact, website, summary, 
             else {
                 return false
             }
+        })
+        // .catch((err) => {
+        //     store.dispatch(HideLoader())
+        //     if (err.response.status === 401) {
+        //         // removeSession()
+        //         window.location.href = "/employer_login"
+        //     }
+        // })
+}
+export function updateEmployerProfileImage(image) {
+    const url = baseUrl + "/EmployerProfilePicUpdate/" + employer_id;
+    store.dispatch(ShowLoader())
+    const postBody = {
+        profile_image: image
+    }
+    return axios.post(url, postBody, employer_axiosHeader)
+        .then((result) => {
+            store.dispatch(HideLoader())
+            if (result.status === 200) {
+                SuccessToast("Success")
+                return result.data.data
+            } else {
+                return "something went wrong"
+            }
         }).catch((err) => {
             store.dispatch(HideLoader())
             if (err.response.status === 401) {
                 removeSession()
-                window.location.href = "/employer_login"
+                window.location.href = "/login"
             }
         })
 }
@@ -353,8 +402,58 @@ export function readEmployerProfile() {
                 ErrorToast("Something Went Wrong")
                 return false;
             }
+        }).catch((err) => {
+            store.dispatch(HideLoader())
+            if (err.response.status === 401) {
+                window.location.href = "/employer_login"
+            }
         })
 }
+
+export function readJobsByCompanyId() {
+    const url = baseUrl + "/readJobsByCompanyId/" + employer_id;
+    store.dispatch(ShowLoader())
+    return axios.get(url, employer_axiosHeader)
+        .then((result) => {
+            store.dispatch(HideLoader())
+            if (result.status === 200) {
+                return result.data
+
+            } else {
+                ErrorToast("Something Went Wrong")
+                return false;
+            }
+        }).catch((err) => {
+            store.dispatch(HideLoader())
+            if (err.response.status === 401) {
+                removeSession()
+                window.location.href = "/employer_login"
+            }
+        })
+}
+
+export function readEmployerJobDetails() {
+    const url = baseUrl + "/readEmployerJobDetails/" + employer_id;
+    store.dispatch(ShowLoader())
+    return axios.get(url, employer_axiosHeader)
+        .then((result) => {
+            store.dispatch(HideLoader())
+            if (result.status === 200) {
+                return result.data
+
+            } else {
+                ErrorToast("Something Went Wrong")
+                return false;
+            }
+        }).catch((err) => {
+            store.dispatch(HideLoader())
+            if (err.response.status === 401) {
+                removeSession()
+                window.location.href = "/employer_login"
+            }
+        })
+}
+
 
 
 

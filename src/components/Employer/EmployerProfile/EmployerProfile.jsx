@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useRef } from 'react';
 import { useEffect } from 'react';
 import { BsPersonFill } from "react-icons/bs";
-import { readCategories, readEmployerProfile, updateEmployerProfile } from '../../../ApiRequest/APIRequest';
+import { readCategories, readEmployerProfile, updateEmployerProfile, updateEmployerProfileImage } from '../../../ApiRequest/APIRequest';
 import JoditEditor from 'jodit-react';
 import { ErrorToast, getBase64, IsEmail, IsEmpty, SuccessToast } from '../../../Helper/FormHelper';
 
@@ -64,6 +64,16 @@ const EmployerProfile = () => {
         }
 
     }
+    const handleSaveProfileImage=()=>{
+        const profileImage = profileImagePreviewRef.src
+
+        let imageFile = profileImageRef.files;
+        if(imageFile.length<1){
+            ErrorToast("Select an image")
+        }else{
+            updateEmployerProfileImage(profileImage)
+        }
+    }
 
     useEffect(() => {
         readEmployerProfile()
@@ -90,20 +100,18 @@ const EmployerProfile = () => {
         })
     }
 
-    const handleUpdateProfileImage=()=>{
-
-    }
+    
     return (
         <div>
             <div className="candidateProfile px-5  mt-4">
                 <div className="profile_image d-flex justify-content-center">
-                    <div className="bg-white">
-                        <div>
+                    <div className="">
+                        <div className="mb-2">
                             <img ref={(input) => profileImagePreviewRef = input} className="user-profile-img" alt="" />
                         </div>
                         <input onChange={previewImage} ref={(input) => profileImageRef = input} type="file" name="" id="" />
                         <br />
-                        <button onClick={handleUpdateProfileImage} className="btn btn-primary btn-sm mt-2">Save</button>
+                        <button onClick={handleSaveProfileImage} className="btn btn-primary btn-sm mt-2">Save</button>
                     </div>
                 </div>
                 <div className="row">

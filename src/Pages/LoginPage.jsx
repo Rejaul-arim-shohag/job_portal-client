@@ -6,7 +6,7 @@ import NavBar from '../components/Navbar/NavBar';
 const LoginPage = () => {
     return (
         <>
-            <NavBar/>
+           <NavBar/>
             <Login/>
             <Footer/>
         </>

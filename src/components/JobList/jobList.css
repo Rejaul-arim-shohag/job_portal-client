@@ -1,10 +1,22 @@
 .search_keywords{
     position: relative;
 }
+.job_loader_div{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+   margin-top:200px;
+}
 .JobSearchIcon{
     position: absolute;
     top:13px;
     left:20px;
+}
+.div_hide{
+    display: none;
+}
+.div_block{
+    display: block;
 }
 /* .job_search_btn{
     position: absolute;
