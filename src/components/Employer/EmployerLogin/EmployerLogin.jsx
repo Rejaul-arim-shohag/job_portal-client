@@ -22,7 +22,7 @@ const EmployerLogin = () => {
         } else {
             loginEmployer(email, password)
                 .then((result) => {
-                    if (result) {
+                    if (result===true) {
                         window.location.href = "/employer_dashboard"
                     }
 
@@ -42,11 +42,11 @@ const EmployerLogin = () => {
                     <div className="content-wrap mt-2">
                         <div className="mt-4">
                             <label for="email">Email *</label>
-                            <input ref={(input) => emailRef = input} required className="form-control " id="email" type="text" />
+                            <input defaultValue="careerjetbd@gmail.com" ref={(input) => emailRef = input} required className="form-control " id="email" type="text" />
                         </div>
                         <div className="mt-4">
                             <label for="password">Password *</label>
-                            <input ref={(input) => passRef = input} required id="password" className="form-control " type="password" />
+                            <input defaultValue="careerjetbd" ref={(input) => passRef = input} required id="password" className="form-control " type="password" />
                         </div>
 
 

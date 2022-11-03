@@ -18,6 +18,7 @@ import EmployerRegistrationPage from "./Pages/EmployerPages/EmployerRegistration
 import EmployerPrivate from "./components/PrivateRoute/EmployerPrivate";
 import SingleJobPage from "./Pages/SingleJobPage";
 import ApplyNowPage from "./Pages/CandidatePages/ApplyNowPage";
+import NotFoundPage from "./Pages/NotFoundPage";
 
 function App() {
 
@@ -31,7 +32,7 @@ function App() {
           <Route path="/JobList" element={<JobListPage />} />
           <Route path="/Job/:id" element={<SingleJobPage />} />
 
-          
+
           //candidate
           <Route path="/registration" element={<RegistrationPage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -100,7 +101,7 @@ function App() {
               </EmployerPrivate>
             }
           />
-
+          <Route path="*" element={<NotFoundPage />} />
           {/* <Route path="/employer_dashboard" element={<EmployerDashboardPage />} />
           <Route path="/employer_dashboard/submit_job" element={<SubmitJobPage />} />
           <Route path="/employer_dashboard/employer_profile" element={<EmployerProfilePage />} /> */}

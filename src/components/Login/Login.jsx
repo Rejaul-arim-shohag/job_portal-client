@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { loginCandidate } from '../../ApiRequest/APIRequest';
 import { ErrorToast, IsEmail, IsEmpty, SuccessToast } from '../../Helper/FormHelper';
 import logo from "../../Assets/images/logo-dark.png"
+import { BiLogIn } from "react-icons/bi";
+
 const Login = () => {
     let emailRef, passRef = useRef();
     let navigate = useNavigate()
@@ -41,11 +43,11 @@ const Login = () => {
                     <div className="content-wrap mt-2">
                         <div className="mt-4">
                             <label for="email">Email *</label>
-                            <input ref={(input) => emailRef = input} required className="form-control" id="email" type="text" />
+                            <input defaultValue="rejaulkarim4740@gmail.com" ref={(input) => emailRef = input} required className="form-control" id="email" type="text" />
                         </div>
                         <div className="mt-4">
                             <label for="password">Password *</label>
-                            <input ref={(input) => passRef = input} required id="password" className="form-control" type="password" />
+                            <input defaultValue="rejaulkarim4740" ref={(input) => passRef = input} required id="password" className="form-control" type="password" />
                         </div>
                         <div className="form-check mt-2">
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
@@ -55,7 +57,7 @@ const Login = () => {
                         </div>
 
                         <div className="mt-4">
-                            <button onClick={handleLoginCandidate} className="btn btn-primary w-100">Login</button>
+                            <button onClick={handleLoginCandidate} className="btn btn-primary w-100"><BiLogIn className="mx-3"/>Login</button>
                         </div>
 
                         <div className="mt-3">

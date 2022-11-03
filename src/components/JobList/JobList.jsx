@@ -163,6 +163,7 @@ const JobList = () => {
                     </div>
 
                     <div className="col-md-8">
+            
 
                         {
                             isLoading ? <div className="job_loader_div"><ScaleLoader color="#36d7b7" /></div> : <div className="row">
@@ -262,11 +263,14 @@ const JobList = () => {
                                         containerClassName="pagination"
                                         activeClassName="active"
                                     />
-                                </nav> : <div className={isLoading ? "div_hide" : "div_block"} style={{ display: "flex", justifyContent: "center", marginTop: "50px" }}><img src={notFound} alt="" style={{ width: "340px" }} /> </div>
+                                </nav> : ""
 
                             }
 
                         </div>
+                        {
+                            jobList.length===0?<div className={isLoading ? "div_hide" : "div_block"} style={{ display: "flex", justifyContent: "center", marginTop: "50px" }}><img src={notFound} alt="" style={{ width: "340px" }} /> </div>:""
+                        }
                     </div>
                 </div>
             </div>

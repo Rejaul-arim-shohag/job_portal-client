@@ -6,6 +6,11 @@ import logo from "../../Assets/images/logo-white.png"
 import { Link, useNavigate, NavLink } from 'react-router-dom';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { FcBusinessman } from "react-icons/fc";
+import { BiLogIn } from "react-icons/bi";
+
+import { FaUserTie } from "react-icons/fa";
+import { BsFillBriefcaseFill } from "react-icons/bs";
+
 const NavBar = () => {
     let navigate = useNavigate()
 
@@ -16,9 +21,31 @@ const NavBar = () => {
 
     const employerDetails = localStorage?.getItem("employerDetails")
     const parsedEmployerData = JSON.parse(employerDetails);
-    const EmployerProfile = parsedEmployerData?.profile_image
+    const EmployerProfile = parsedEmployerData?.profile_image;
+    let data;
+    if (applicantDetails !== null) {
+        data = <Nav.Link as={NavLink}  to='/candidate_dashboard'>
+            <img className="rounded-" src={profile_image} style={{ height: "40px" }} alt="" />
+        </Nav.Link>
 
-    
+    } else if (employerDetails !== null) {
+        data = <Nav.Link  as={NavLink} to='/employer_dashboard'>
+            <img className="rounded-circle" src={EmployerProfile} style={{ height: "40px" }} alt="" />
+        </Nav.Link>
+
+    } else {
+        data = <Dropdown>
+            <Dropdown.Toggle className="toggle_btn px-4 mx-3 mt-1" variant="primary" id="dropdown-basic">
+                Login/Register
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+                <Dropdown.Item className="my-3 py-2" as={NavLink} to='/login'><FaUserTie className="mx-2" />Candidate</Dropdown.Item>
+                <Dropdown.Item className="my-3 py-2" as={NavLink} to='/employer_login'><BsFillBriefcaseFill className="mx-2" />Employer</Dropdown.Item>
+            </Dropdown.Menu>
+        </Dropdown>
+    }
+
+
     return (
         <div style={{ margin: "0px", padding: "0px", backgroundColor: "#2F2EA6" }}>
             <Navbar className="bg_Blue mainNav mx-w-100" expand="lg">
@@ -32,31 +59,17 @@ const NavBar = () => {
                             <Nav.Link as={NavLink} to='/'>
                                 Home
                             </Nav.Link>
+
                             <Nav.Link as={NavLink} to='/JobList'>
                                 Find Job
                             </Nav.Link>
+                            {data}
 
-                            {/* {
-                                employerDetails ? <Nav.Link as={NavLink} to='/JobList'>
-                                    <img className="rounded-circle" src="https://res.cloudinary.com/dub6q8hhb/image/upload/v1667099857/icon/y10_dl0y2f.jpg" style={{ height: "40px" }} alt="" />
-                                </Nav.Link> : <Nav.Link as={NavLink} to='/JobList'>
-                                    <img className="rounded-circle" src="https://res.cloudinary.com/dub6q8hhb/image/upload/v1667099857/icon/y10_dl0y2f.jpg" style={{ height: "40px" }} alt="" />
-                                </Nav.Link>
-                            } */}
-
-                            <Dropdown className={`${applicantDetails}?"hideNavLink":"showNavLink"`}>
-                                <Dropdown.Toggle className="toggle_btn" variant="primary" id="dropdown-basic">
-                                Login/Register
-                                </Dropdown.Toggle>
-                                <Dropdown.Menu>
-                                    <Dropdown.Item as={NavLink} to='/login'>Candidate</Dropdown.Item>
-                                    <Dropdown.Item as={NavLink} to='/employer_login'>Employer</Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
-
-                            <button className="btn btn-primary mx-2">
-                                <Link to={`/employer_dashboard/submit_job`}>Job Post</Link>
-                            </button>
+                            <Link to={`/employer_dashboard/submit_job`}>
+                                <button className="btn btn-primary mx-2 px-5 py-2 mt-1">
+                                    Job Post
+                                </button>
+                            </Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

@@ -28,7 +28,7 @@ const SingleJob = () => {
             })
     }, [])
     return (
-        <div style={{ background: "#FFFFFF" }}>
+        <div className="pb-5" style={{ background: "#FFFFFF" }}>
             <div className="container">
                 <div className="row">
                     <div className="col-md-8">

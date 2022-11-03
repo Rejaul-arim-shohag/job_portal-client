@@ -11,7 +11,7 @@ import { SetCanceledTask, setCompletedTask, setNewTask, SetProgressTask } from "
 import { SetSummary } from "../redux/stateSlice/summarySlice";
 import { SetProfile } from "../redux/stateSlice/profileSlice";
 
-const baseUrl = "http://localhost:5000/api/v1";
+const baseUrl = "https://job-portal-e7dy.onrender.com/api/v1";
 
 const candidate_axiosHeader = { headers: { "applicantstoken": getCandidateToken() } }
 const applicantDetails = localStorage.getItem("CandidateDetails")
@@ -34,7 +34,7 @@ export function registrationCandidate(email, password) {
         .then((result) => {
             store.dispatch(HideLoader())
             if (result.status === 200) {
-                return result.data.data
+                return true
             } else {
                 return "something went wrong"
             }
@@ -213,7 +213,7 @@ export function readTypes() {
 
 
 export function readJobs(perPage, searchKeyword, location, category, type, sortBy, pageNo) {
-   debugger;
+
     const url = baseUrl + "/readJobs/" + pageNo+ "/" + perPage;
     store.dispatch(ShowLoader())
     const postBody = {
@@ -300,7 +300,7 @@ export function loginEmployer(email, password) {
                 setEmployerToken(result.data["EmployerToken"])
                 setEmployerDetails(result.data.data)
                 SuccessToast("Login Success")
-                return result.data.data
+                return true
             } else {
                 ErrorToast("Invalid email address or password")
                 return "something went wrong"
@@ -451,85 +451,6 @@ export function readEmployerJobDetails() {
                 removeSession()
                 window.location.href = "/employer_login"
             }
-        })
-}
-
-
-
-
-
-
-//bussiness table management
-export async function GetProductList(pageNo, perPage, searchKeyword) {
-    store.dispatch(ShowLoader())
-    let URL = baseUrl + "/ProductList/" + pageNo + "/" + perPage + "/" + searchKeyword;
-    try {
-        const result = await axios.get(URL)
-
-        store.dispatch(HideLoader())
-        if (result.status === 200 && result.data['status'] === "success") {
-            if (result.data['data'][0]['Rows'].length > 0) {
-                store.dispatch(SetALLProduct(result.data['data'][0]['Rows']))
-                store.dispatch(SetTotal(result.data['data'][0]['Total'][0]['count']))
-            } else {
-                store.dispatch(SetALLProduct([]))
-                store.dispatch(SetTotal(0))
-                ErrorToast("No Data Found")
-            }
-        } else {
-            ErrorToast("Something Went Wrong")
-        }
-    }
-
-    catch (e) {
-        ErrorToast("Something Went Wrong")
-        store.dispatch(HideLoader())
-    }
-}
-
-
-
-
-
-
-export function registrationRequest(email, firstName, lastName, mobile, password, photo) {
-    store.dispatch(ShowLoader())
-    const url = baseUrl + "/registration";
-    const postBody = {
-        email: email,
-        firstName: firstName,
-        lastName: lastName,
-        mobile: mobile,
-        password: password,
-        photo: photo
-    }
-    return axios.post(url, postBody)
-        .then((res) => {
-            store.dispatch(HideLoader())
-            if (res.status === 200) {
-                if (res.data['status'] === "fail") {
-                    if (res.data['data']['keyPattern']['email'] === 1) {
-                        ErrorToast("Email Already Exist")
-                        return false;
-                    }
-                    else {
-                        ErrorToast("Something Went Wrong")
-                        return false;
-                    }
-                }
-                else {
-                    SuccessToast("Registration Success")
-                    return true;
-                }
-            }
-            else {
-                ErrorToast("Something Went Wrong")
-                return false;
-            }
-        }).catch((err) => {
-            store.dispatch(HideLoader())
-            ErrorToast("Something Went Wrong")
-            return false;
         })
 }
 
